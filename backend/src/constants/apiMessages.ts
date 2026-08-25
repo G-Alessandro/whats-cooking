@@ -37,4 +37,13 @@ export const apiMessages = {
       invalid: "Invalid authorization",
     },
   },
+  favoriteRecipes: {
+    authenticationRequired: "Authentication required",
+    unableToRetrieve: "Unable to retrieve your favorite recipes",
+    alreadyExisting: "Recipe is already in favorites",
+    unableToAdd: "Unable to add recipe to favorites",
+    invalidId: "Invalid recipe",
+    notFound: "Favorite recipe not found",
+    unableToRemove: "Unable to remove recipe from favorites",
+  },
 } as const;
