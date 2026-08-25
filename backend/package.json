@@ -6,8 +6,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "dotenv -e .env.test -- vitest",
-    "test:run": "dotenv -e .env.test -- vitest run",
+    "test": "dotenv -e .env.test -- vitest run",
     "db:test:migrate": "dotenv -e .env.test -- prisma migrate deploy"
   },
   "dependencies": {
