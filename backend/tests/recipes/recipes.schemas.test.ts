@@ -4,7 +4,7 @@ import {
   recipeByIngredientsResultSchema,
   recipeIdParamsSchema,
   recipeInstructionsSchema,
-} from "../../src/schemas/recipe.schema";
+} from "../../src/schemas/recipes.schema";
 
 const validIngredientsList = "chicken, tomatoes, crème fraîche";
 const ingredientsListWithSpace = "  chicken  ,  tomatoes,  crème fraîche ";
