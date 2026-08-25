@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mapRecipeInstructions } from "../../src/mappers/recipe.mapper";
+import { mapRecipeInstructions } from "../../src/mappers/recipes.mapper";
 
 describe("mapRecipeInstructions", () => {
   it("adds total equipment and total ingredients", () => {
