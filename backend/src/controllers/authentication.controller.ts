@@ -116,7 +116,7 @@ export async function logout(req: Request, res: Response) {
     await logoutUser(parsedResult.data.refreshToken);
 
     return res.status(204).json({
-      message: apiMessages.authentication.logout.failedLogout,
+      message: apiMessages.authentication.logout.logoutSuccessful,
     });
   } catch (error) {
     console.error(error);
