@@ -15,6 +15,7 @@ export const apiMessages = {
       unableToRegister: "Unable to register user",
       invalidData: "Please use a valid email or password",
       emailAlreadyUsed: "Email already in use",
+      registrationSuccessful: "Registration successful",
     },
     login: {
       loginFailed: "Login failed",
