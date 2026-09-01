@@ -8,7 +8,7 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import LoginForm from "../../src/components/LoginForm";
-import { loginUser } from "../../src/services/authentication.service";
+import { loginUser } from "../../src/services/authentication.services";
 import { saveRefreshToken } from "../../src/services/token.services";
 import { Alert } from "react-native";
 
