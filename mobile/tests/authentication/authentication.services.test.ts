@@ -10,7 +10,7 @@ import {
   logoutUser,
   refreshAccessToken,
   registerUser,
-} from "../../src/services/authentication.service";
+} from "../../src/services/authentication.services";
 
 describe("authentication.service", () => {
   beforeEach(() => {
