@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react-native";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import RegisterForm from "../../src/components/RegisterForm";
-import { registerUser } from "../../src/services/authentication.service";
+import { registerUser } from "../../src/services/authentication.services";
 
 vi.mock("../../src/services/authentication.service", () => ({
   registerUser: vi.fn(),
@@ -39,7 +39,7 @@ describe("RegisterForm", () => {
     expect(getByPlaceholderText("Password")).toBeTruthy();
 
     expect(getByPlaceholderText("Confirm password")).toBeTruthy();
-    
+
     expect(getByText("Register")).toBeTruthy();
   });
 
@@ -73,7 +73,6 @@ describe("RegisterForm", () => {
   });
 
   it("shows an error when the password is too short", async () => {
-
     const { getByPlaceholderText, getByText } = await render(<RegisterForm />);
 
     await act(async () => {
@@ -102,7 +101,6 @@ describe("RegisterForm", () => {
   });
 
   it("shows an error when passwords do not match", async () => {
-
     const { getByPlaceholderText, getByText } = await render(<RegisterForm />);
 
     await act(async () => {
