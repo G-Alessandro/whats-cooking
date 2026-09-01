@@ -14,7 +14,7 @@ import {
 import {
   logoutUser,
   refreshAccessToken,
-} from "../../src/services/authentication.service";
+} from "../../src/services/authentication.services";
 import { Button, Text } from "react-native";
 
 vi.mock("../../src/services/token.services", () => ({
