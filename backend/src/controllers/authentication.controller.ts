@@ -27,8 +27,7 @@ export async function registration(req: Request, res: Response) {
     );
 
     return res.status(201).json({
-      id: user.id,
-      email: user.email,
+      message: apiMessages.authentication.registration.registrationSuccessful,
     });
   } catch (error) {
     console.error(error);
