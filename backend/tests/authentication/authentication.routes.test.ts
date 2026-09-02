@@ -21,8 +21,7 @@ describe("POST /authentication/registration", () => {
     expect(response.status).toBe(201);
 
     expect(response.body).toEqual({
-      id: expect.any(Number),
-      email: "test@example.com",
+      message: "Registration successful",
     });
   });
 
@@ -87,6 +86,7 @@ describe("POST /authentication/login", () => {
     expect(response.body).toEqual({
       accessToken: expect.any(String),
       refreshToken: expect.any(String),
+      message: "Login successful",
     });
   });
 
@@ -256,8 +256,8 @@ describe("POST /authentication/logout", () => {
       refreshToken,
     });
 
-    expect(response.status).toBe(204);
-    expect(response.body).toEqual({});
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "Logout successful" });
 
     const storedToken = await prisma.refreshToken.findUnique({
       where: {
@@ -275,8 +275,8 @@ describe("POST /authentication/logout", () => {
       refreshToken,
     });
 
-    expect(response.status).toBe(204);
-    expect(response.body).toEqual({});
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "Logout successful" });
   });
 
   it("with invalid body", async () => {
