@@ -21,10 +21,7 @@ export async function registration(req: Request, res: Response) {
   }
 
   try {
-    const user = await registrationUser(
-      result.data.email,
-      result.data.password,
-    );
+    await registrationUser(result.data.email, result.data.password);
 
     return res.status(201).json({
       message: apiMessages.authentication.registration.registrationSuccessful,
@@ -58,7 +55,8 @@ export async function login(req: Request, res: Response) {
       });
     }
 
-    return res.status(200).json(result).json({
+    return res.status(200).json({
+      ...result,
       message: apiMessages.authentication.login.loggedIn,
     });
   } catch (error) {
@@ -114,7 +112,7 @@ export async function logout(req: Request, res: Response) {
   try {
     await logoutUser(parsedResult.data.refreshToken);
 
-    return res.status(204).json({
+    return res.status(200).json({
       message: apiMessages.authentication.logout.logoutSuccessful,
     });
   } catch (error) {
