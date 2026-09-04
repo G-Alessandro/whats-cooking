@@ -5,7 +5,7 @@ import {
   spoonacularRecipeInstructionsMock,
 } from "../mocks/spoonacular.mock";
 import request from "supertest";
-
+import "../setup/database";
 import app from "../../src/app";
 
 const validIngredientParameters = "chicken, tomatoes, onions";
