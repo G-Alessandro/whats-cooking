@@ -1,4 +1,5 @@
 import prisma from "../clients/prisma.client";
+import { NewFavoriteRecipe } from "../schemas/favorites.schema";
 
 export async function getFavoriteRecipes(userId: number) {
   return await prisma.favoriteRecipe.findMany({
@@ -15,16 +16,14 @@ export async function getFavoriteRecipes(userId: number) {
 }
 
 export async function addFavoriteRecipe(
-  recipeName: string,
-  recipeImage: string,
-  recipeId: number,
+  favoriteRecipeData: NewFavoriteRecipe,
   userId: number,
 ) {
   const favoriteRecipe = await prisma.favoriteRecipe.create({
     data: {
-      recipeName,
-      recipeImage,
-      recipeId,
+      recipeName: favoriteRecipeData.recipeName,
+      recipeImage: favoriteRecipeData.recipeImage,
+      recipeId: favoriteRecipeData.recipeId,
       userId,
     },
   });
