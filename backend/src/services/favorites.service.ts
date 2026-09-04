@@ -7,15 +7,23 @@ export async function getFavoriteRecipes(userId: number) {
     },
     select: {
       id: true,
+      recipeName: true,
+      recipeImage: true,
       recipeId: true,
-      userId: true,
     },
   });
 }
 
-export async function addFavoriteRecipe(recipeId: number, userId: number) {
+export async function addFavoriteRecipe(
+  recipeName: string,
+  recipeImage: string,
+  recipeId: number,
+  userId: number,
+) {
   const favoriteRecipe = await prisma.favoriteRecipe.create({
     data: {
+      recipeName,
+      recipeImage,
       recipeId,
       userId,
     },
