@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { recipeIdParamSchema } from "../../src/schemas/favorites.schema";
+import { favoriteRecipeIdParamSchema } from "../../src/schemas/favorites.schema";
 
 const validRecipeId = "3";
 const recipeWithDecimalId = "3.5";
@@ -10,37 +10,37 @@ const emptyRecipeId = "";
 
 describe("recipe ID params schema", () => {
   it("accepts a valid id", () => {
-    const result = recipeIdParamSchema.safeParse(validRecipeId);
+    const result = favoriteRecipeIdParamSchema.safeParse(validRecipeId);
 
     expect(result.success).toBe(true);
   });
 
   it("rejects a decimal id", () => {
-    const result = recipeIdParamSchema.safeParse(recipeWithDecimalId);
+    const result = favoriteRecipeIdParamSchema.safeParse(recipeWithDecimalId);
 
     expect(result.success).toBe(false);
   });
 
   it("rejects a word id", () => {
-    const result = recipeIdParamSchema.safeParse(recipeWithWordId);
+    const result = favoriteRecipeIdParamSchema.safeParse(recipeWithWordId);
 
     expect(result.success).toBe(false);
   });
 
   it("rejects a negative id", () => {
-    const result = recipeIdParamSchema.safeParse(recipeWithNegativeId);
+    const result = favoriteRecipeIdParamSchema.safeParse(recipeWithNegativeId);
 
     expect(result.success).toBe(false);
   });
 
   it("rejects zero as an id", () => {
-    const result = recipeIdParamSchema.safeParse(recipeWithZeroId);
+    const result = favoriteRecipeIdParamSchema.safeParse(recipeWithZeroId);
 
     expect(result.success).toBe(false);
   });
 
   it("rejects an empty id", () => {
-    const result = recipeIdParamSchema.safeParse(emptyRecipeId);
+    const result = favoriteRecipeIdParamSchema.safeParse(emptyRecipeId);
 
     expect(result.success).toBe(false);
   });
