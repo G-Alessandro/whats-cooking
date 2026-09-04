@@ -28,11 +28,13 @@ model RefreshToken {
 }
 
 model FavoriteRecipe {
-  id       Int      @id @default(autoincrement())
-  recipeId Int
-  userId   Int
-  createAt DateTime @default(now())
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          Int      @id @default(autoincrement())
+  recipeName  String
+  recipeImage String
+  recipeId    Int
+  userId      Int
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, recipeId])
 }
