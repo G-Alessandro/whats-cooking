@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { Prisma } from "../generated/prisma/client";
-import { recipeIdParamSchema } from "../schemas/favorites.schema";
+import {
+  favoriteRecipeIdParamSchema,
+  newFavoriteRecipeSchema,
+} from "../schemas/favorites.schema";
 import {
   getFavoriteRecipes,
   addFavoriteRecipe,
@@ -42,15 +45,18 @@ export async function addFavoriteRecipeController(req: Request, res: Response) {
       });
     }
 
-    const parsedRecipeId = recipeIdParamSchema.safeParse(req.params.recipeId);
+    const parsedNewFavoriteRecipe = newFavoriteRecipeSchema.safeParse(req.body);
 
-    if (!parsedRecipeId.success) {
+    if (!parsedNewFavoriteRecipe.success) {
       return res.status(400).json({
         error: apiMessages.favoriteRecipes.invalidId,
       });
     }
 
-    const favoriteRecipe = await addFavoriteRecipe(parsedRecipeId.data, userId);
+    const favoriteRecipe = await addFavoriteRecipe(
+      parsedNewFavoriteRecipe.data,
+      userId,
+    );
 
     return res.status(201).json(favoriteRecipe);
   } catch (error) {
@@ -84,7 +90,9 @@ export async function removeFavoriteRecipeController(
       });
     }
 
-    const parsedRecipeId = recipeIdParamSchema.safeParse(req.params.recipeId);
+    const parsedRecipeId = favoriteRecipeIdParamSchema.safeParse(
+      req.params.recipeId,
+    );
 
     if (!parsedRecipeId.success) {
       return res.status(400).json({
