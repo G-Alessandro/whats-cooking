@@ -9,7 +9,7 @@ const router = Router();
 
 router.get("/", getFavoriteRecipesController);
 
-router.post("/:recipeId", addFavoriteRecipeController);
+router.post("/", addFavoriteRecipeController);
 
 router.delete("/:recipeId", removeFavoriteRecipeController);
 
