@@ -45,6 +45,8 @@ export const recipeByIngredientsResultSchema = z.array(
   }),
 );
 
+export type RecipesListResult = z.infer<typeof recipeByIngredientsResultSchema>;
+
 export const recipeIdParamsSchema = z.coerce
   .number()
   .int()
