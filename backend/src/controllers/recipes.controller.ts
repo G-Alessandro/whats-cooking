@@ -5,11 +5,16 @@ import {
   recipeIdParamsSchema,
   recipeInstructionsSchema,
 } from "../schemas/recipes.schema";
+import { favoriteRecipesSchema } from "../schemas/favorites.schema";
 import {
   findRecipesByIngredients,
   findRecipeInstructionsById,
 } from "../services/recipes.service";
-import { mapRecipeInstructions } from "../mappers/recipes.mapper";
+import { getFavoriteRecipes } from "../services/favorites.service";
+import {
+  mapRecipeInstructions,
+  mapRecipesWithFavorites,
+} from "../mappers/recipes.mapper";
 import { apiMessages } from "../constants/apiMessages";
 
 export const searchRecipes = async (req: Request, res: Response) => {
@@ -42,7 +47,31 @@ export const searchRecipes = async (req: Request, res: Response) => {
       });
     }
 
-    return res.json(parsedRecipesResult.data);
+    let result = parsedRecipesResult.data;
+    const userId = req.userId;
+
+    if (userId) {
+      const favoriteRecipes = await getFavoriteRecipes(userId);
+      const parsedFavoriteRecipes =
+        favoriteRecipesSchema.safeParse(favoriteRecipes);
+
+      if (!parsedFavoriteRecipes.success) {
+        console.error(
+          `${apiMessages.favoriteRecipes.unableToRetrieve}:`,
+          parsedFavoriteRecipes.error.issues,
+        );
+        return res.status(502).json({
+          error: apiMessages.favoriteRecipes.unableToRetrieve,
+        });
+      }
+
+      result = mapRecipesWithFavorites(
+        parsedRecipesResult.data,
+        parsedFavoriteRecipes.data,
+      );
+    }
+
+    return res.status(200).json(result);
   } catch (error) {
     console.error(error);
 
@@ -87,7 +116,36 @@ export const findRecipeInstructions = async (req: Request, res: Response) => {
       parsedRecipeInstructionsResult.data,
     );
 
-    return res.json(mappedRecipeInstructions);
+    let result = mappedRecipeInstructions;
+    const userId = req.userId;
+
+    if (userId) {
+      const favoriteRecipes = await getFavoriteRecipes(userId);
+      const parsedFavoriteRecipes =
+        favoriteRecipesSchema.safeParse(favoriteRecipes);
+
+      if (!parsedFavoriteRecipes.success) {
+        console.error(
+          `${apiMessages.favoriteRecipes.unableToRetrieve}:`,
+          parsedFavoriteRecipes.error.issues,
+        );
+        return res.status(502).json({
+          error: apiMessages.favoriteRecipes.unableToRetrieve,
+        });
+      }
+
+      const isFavorite = parsedFavoriteRecipes.data.some(
+        (favoriteRecipe) =>
+          favoriteRecipe.recipeId === parsedRecipeIdResult.data,
+      );
+
+      result = mappedRecipeInstructions.map((recipe) => ({
+        ...recipe,
+        isFavorite,
+      }));
+    }
+
+    return res.status(200).json(result);
   } catch (error) {
     console.error(error);
 
