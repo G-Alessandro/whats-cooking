@@ -9,3 +9,7 @@ export const newFavoriteRecipeSchema = z.object({
 });
 
 export type NewFavoriteRecipe = z.infer<typeof newFavoriteRecipeSchema>;
+
+export const favoriteRecipesSchema = z.array(newFavoriteRecipeSchema);
+
+export type FavoriteRecipes = z.infer<typeof favoriteRecipesSchema>;
