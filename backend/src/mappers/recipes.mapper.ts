@@ -1,4 +1,8 @@
-import { RecipeInstructions } from "../schemas/recipes.schema";
+import {
+  RecipeInstructions,
+  RecipesListResult,
+} from "../schemas/recipes.schema";
+import { FavoriteRecipes } from "../schemas/favorites.schema";
 
 export function mapRecipeInstructions(recipeInstructions: RecipeInstructions) {
   let mappedRecipeInstructions = [];
@@ -23,4 +27,18 @@ export function mapRecipeInstructions(recipeInstructions: RecipeInstructions) {
   }
 
   return mappedRecipeInstructions;
+}
+
+export function mapRecipesWithFavorites(
+  recipes: RecipesListResult,
+  favoriteRecipes: FavoriteRecipes,
+) {
+  const favoriteRecipeIds = new Set(
+    favoriteRecipes.map((favorite) => favorite.recipeId),
+  );
+
+  return recipes.map((recipe) => ({
+    ...recipe,
+    isFavorite: favoriteRecipeIds.has(recipe.id),
+  }));
 }
