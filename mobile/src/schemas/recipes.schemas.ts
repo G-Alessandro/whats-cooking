@@ -8,7 +8,7 @@ const recipeIngredientSchema = z.object({
   unit: z.string(),
 });
 
-export const recipeByIngredientsResultSchema = z.array(
+export const recipeListResultSchema = z.array(
   z.object({
     id: z.number(),
     title: z.string(),
@@ -21,4 +21,4 @@ export const recipeByIngredientsResultSchema = z.array(
   }),
 );
 
-export type RecipesListResult = z.infer<typeof recipeByIngredientsResultSchema>;
+export type RecipesListResult = z.infer<typeof recipeListResultSchema>;
