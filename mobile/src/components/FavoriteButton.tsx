@@ -4,7 +4,7 @@ import FavoriteOutlineSvg from "../assets/svg/favorite/favorite-outline.svg";
 import {
   addFavoriteRecipe,
   removeFavoriteRecipe,
-} from "@/services/favorites.services";
+} from "../services/favorites.services";
 import { getValidAccessToken } from "../services/token.services";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
