@@ -41,22 +41,28 @@ export const recipeInstructionsSchema = z.array(
               .optional(),
           }),
         ),
+
         ingredients: z.array(
           z.object({
             id: z.number(),
             name: z.string(),
           }),
         ),
+
         length: z
           .object({
             number: z.number(),
             unit: z.string(),
           })
           .optional(),
+
         number: z.number(),
         step: z.string(),
       }),
     ),
+
+    totalEquipment: z.array(z.string()),
+    totalIngredients: z.array(z.string()),
   }),
 );
 
