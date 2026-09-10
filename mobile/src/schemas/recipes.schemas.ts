@@ -22,3 +22,42 @@ export const recipeListResultSchema = z.array(
 );
 
 export type RecipesListResult = z.infer<typeof recipeListResultSchema>;
+
+export const recipeInstructionsSchema = z.array(
+  z.object({
+    isFavorite: z.boolean().optional(),
+    name: z.string(),
+    steps: z.array(
+      z.object({
+        equipment: z.array(
+          z.object({
+            id: z.number(),
+            name: z.string(),
+            temperature: z
+              .object({
+                number: z.number(),
+                unit: z.string(),
+              })
+              .optional(),
+          }),
+        ),
+        ingredients: z.array(
+          z.object({
+            id: z.number(),
+            name: z.string(),
+          }),
+        ),
+        length: z
+          .object({
+            number: z.number(),
+            unit: z.string(),
+          })
+          .optional(),
+        number: z.number(),
+        step: z.string(),
+      }),
+    ),
+  }),
+);
+
+export type RecipeInstructionsResult = z.infer<typeof recipeInstructionsSchema>;
