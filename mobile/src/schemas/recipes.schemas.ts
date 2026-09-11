@@ -26,6 +26,9 @@ export type RecipesListResult = z.infer<typeof recipeListResultSchema>;
 export const recipeInstructionsSchema = z.array(
   z.object({
     isFavorite: z.boolean().optional(),
+    recipeId: z.number(),
+    recipeName: z.string(),
+    recipeImage: z.string(),
     name: z.string(),
     steps: z.array(
       z.object({
