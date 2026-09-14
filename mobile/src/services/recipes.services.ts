@@ -14,9 +14,7 @@ export async function getRecipesByIngredients(
 
   const response = await fetch(
     `${API_BACKEND_URL}/recipes?ingredients=${query}`,
-    {
-      headers,
-    },
+    { method: "GET", headers },
   );
 
   if (!response.ok) {
@@ -37,6 +35,7 @@ export async function getRecipeInstructions(
   }
 
   const response = await fetch(`${API_BACKEND_URL}/recipes/${recipeId}`, {
+    method: "GET",
     headers,
   });
 
