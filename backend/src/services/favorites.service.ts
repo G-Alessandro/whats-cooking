@@ -7,7 +7,6 @@ export async function getFavoriteRecipes(userId: number) {
       userId,
     },
     select: {
-      id: true,
       recipeName: true,
       recipeImage: true,
       recipeId: true,
