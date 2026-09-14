@@ -1,5 +1,20 @@
 const API_BACKEND_URL = process.env.EXPO_PUBLIC_API_BACKEND_URL;
 
+export async function getFavoriteRecipes(accessToken: string) {
+  const response = await fetch(`${API_BACKEND_URL}/favorites`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to find favorites");
+  }
+
+  return response.json();
+}
+
 export async function addFavoriteRecipe(
   recipeName: string,
   recipeImage: string,
