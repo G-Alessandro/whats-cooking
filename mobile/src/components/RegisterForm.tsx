@@ -74,52 +74,53 @@ export default function RegisterForm() {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.title}>Create Your Account</Text>
+      <View style={styles.container}>
+        <TextInput
+          style={[styles.input, errors.email && styles.inputError]}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+        />
 
-      <TextInput
-        style={[styles.input, errors.email && styles.inputError]}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoComplete="email"
-      />
+        {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
-      {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+        <TextInput
+          style={[styles.input, errors.password && styles.inputError]}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          autoCapitalize="none"
+          secureTextEntry
+          autoComplete="new-password"
+        />
 
-      <TextInput
-        style={[styles.input, errors.password && styles.inputError]}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize="none"
-        secureTextEntry
-        autoComplete="new-password"
-      />
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password}</Text>
+        )}
 
-      {errors.password && (
-        <Text style={styles.errorText}>{errors.password}</Text>
-      )}
+        <TextInput
+          style={[styles.input, errors.confirmPassword && styles.inputError]}
+          placeholder="Confirm password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          autoCapitalize="none"
+          secureTextEntry
+          autoComplete="new-password"
+        />
 
-      <TextInput
-        style={[styles.input, errors.confirmPassword && styles.inputError]}
-        placeholder="Confirm password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        autoCapitalize="none"
-        secureTextEntry
-        autoComplete="new-password"
-      />
+        {errors.confirmPassword && (
+          <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+        )}
 
-      {errors.confirmPassword && (
-        <Text style={styles.errorText}>{errors.confirmPassword}</Text>
-      )}
-
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -127,7 +128,7 @@ export default function RegisterForm() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 24,
+    paddingHorizontal: 12,
   },
 
   title: {
@@ -137,8 +138,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 15,
     borderBottomColor: "green",
-    borderBottomWidth: 5,
-    marginTop: 30,
+    borderBottomWidth: 2,
+    marginTop: 50,
     marginBottom: 30,
   },
 
