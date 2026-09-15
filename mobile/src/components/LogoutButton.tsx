@@ -5,11 +5,13 @@ export default function LogoutButton() {
   const { logout } = useAuth();
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.title}>Logout</Text>
-      <TouchableOpacity style={styles.button} onPress={logout}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={logout}>
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -17,7 +19,7 @@ export default function LogoutButton() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 24,
+    paddingHorizontal: 12,
   },
 
   title: {
@@ -27,8 +29,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 15,
     borderBottomColor: "green",
-    borderBottomWidth: 5,
-    marginTop: 30,
+    borderBottomWidth: 2,
+    marginTop: 50,
     marginBottom: 30,
   },
 
