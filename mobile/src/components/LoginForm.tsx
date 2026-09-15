@@ -71,36 +71,37 @@ export default function LoginForm() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
+    <View>
+      <Text style={styles.title}>Login</Text>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+        />
+        {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoComplete="email"
-      />
-      {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          autoCapitalize="none"
+          secureTextEntry
+          autoComplete="new-password"
+        />
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password}</Text>
+        )}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize="none"
-        secureTextEntry
-        autoComplete="new-password"
-      />
-      {errors.password && (
-        <Text style={styles.errorText}>{errors.password}</Text>
-      )}
-
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -108,7 +109,7 @@ export default function LoginForm() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 24,
+    paddingHorizontal: 12,
   },
 
   title: {
@@ -118,8 +119,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 15,
     borderBottomColor: "green",
-    borderBottomWidth: 5,
-    marginTop: 30,
+    borderBottomWidth: 2,
+    marginTop: 50,
     marginBottom: 30,
   },
 
