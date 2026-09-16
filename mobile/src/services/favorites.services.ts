@@ -55,6 +55,4 @@ export async function removeFavoriteRecipe(
   if (!response.ok) {
     throw new Error("Unable to remove favorite");
   }
-
-  return response.json();
 }
