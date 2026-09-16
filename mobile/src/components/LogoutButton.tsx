@@ -1,14 +1,22 @@
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useRecipes } from "../context/RecipeContext";
 import { useAuth } from "../context/AuthContext";
 
 export default function LogoutButton() {
+  const { setRecipesList, setRecipeInstructions } = useRecipes();
   const { logout } = useAuth();
+
+  async function handleLogout() {
+    await logout();
+    setRecipesList([]);
+    setRecipeInstructions([]);
+  }
 
   return (
     <View>
       <Text style={styles.title}>Logout</Text>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={logout}>
+        <TouchableOpacity style={styles.button} onPress={handleLogout}>
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
