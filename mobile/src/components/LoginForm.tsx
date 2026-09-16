@@ -11,6 +11,7 @@ import { z } from "zod";
 import { loginSchema } from "../schemas/authentication.schemas";
 import { loginUser } from "../services/authentication.services";
 import { saveRefreshToken } from "../services/token.services";
+import LoadingIcon from "./LoadingIcon";
 import { useAuth } from "../context/AuthContext";
 import { router, useFocusEffect } from "expo-router";
 
@@ -21,6 +22,7 @@ export default function LoginForm() {
     email?: string;
     password?: string;
   }>({});
+  const [loading, setLoading] = useState(false);
   const { setAccessToken } = useAuth();
 
   useFocusEffect(
@@ -52,6 +54,7 @@ export default function LoginForm() {
     setErrors({});
 
     try {
+      setLoading(true);
       const data = await loginUser(email, password);
       setAccessToken(data.accessToken);
       await saveRefreshToken(data.refreshToken);
@@ -67,6 +70,8 @@ export default function LoginForm() {
         "Login failed",
         error instanceof Error ? error.message : "Something went wrong",
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,9 +103,14 @@ export default function LoginForm() {
           <Text style={styles.errorText}>{errors.password}</Text>
         )}
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          {!loading && (
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+          )}
+          {loading && <LoadingIcon width={52} height={52} />}
+        </View>
       </View>
     </View>
   );
@@ -147,13 +157,15 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
+  buttonContainer: { alignItems: "center", paddingTop: 20 },
+
   button: {
     height: 52,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#059415",
-    marginTop: 20,
+    paddingHorizontal: 80,
   },
 
   buttonText: {
