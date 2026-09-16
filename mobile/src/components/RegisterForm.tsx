@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { useState, useCallback } from "react";
+import LoadingIcon from "./LoadingIcon";
 import { z } from "zod";
 import { registerSchema } from "../schemas/authentication.schemas";
 import { registerUser } from "../services/authentication.services";
@@ -22,6 +23,7 @@ export default function RegisterForm() {
     password?: string;
     confirmPassword?: string;
   }>({});
+  const [loading, setLoading] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -56,6 +58,7 @@ export default function RegisterForm() {
     setErrors({});
 
     try {
+      setLoading(true);
       const data = await registerUser(email, password);
       Alert.alert(data.message, "You will be redirected to the login page.", [
         {
@@ -70,6 +73,8 @@ export default function RegisterForm() {
         "Registration failed",
         error instanceof Error ? error.message : "Something went wrong",
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,10 +121,14 @@ export default function RegisterForm() {
         {errors.confirmPassword && (
           <Text style={styles.errorText}>{errors.confirmPassword}</Text>
         )}
-
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          {!loading && (
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+          )}
+          {loading && <LoadingIcon width={52} height={52} />}
+        </View>
       </View>
     </View>
   );
@@ -166,13 +175,15 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
+  buttonContainer: { alignItems: "center", paddingTop: 20 },
+
   button: {
     height: 52,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#059415",
-    marginTop: 20,
+    paddingHorizontal: 80,
   },
 
   buttonText: {
