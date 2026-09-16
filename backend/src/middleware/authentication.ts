@@ -31,3 +31,17 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
     });
   }
 }
+
+export function optionalAuthenticate(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return next();
+  }
+
+  return authenticate(req, res, next);
+}
