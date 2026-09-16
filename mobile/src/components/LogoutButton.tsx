@@ -1,24 +1,37 @@
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import LoadingIcon from "./LoadingIcon";
 import { useRecipes } from "../context/RecipeContext";
 import { useAuth } from "../context/AuthContext";
 
 export default function LogoutButton() {
   const { setRecipesList, setRecipeInstructions } = useRecipes();
+  const [loading, setLoading] = useState(false);
   const { logout } = useAuth();
 
   async function handleLogout() {
-    await logout();
-    setRecipesList([]);
-    setRecipeInstructions([]);
+    setLoading(true);
+
+    try {
+      await logout();
+
+      setRecipesList([]);
+      setRecipeInstructions([]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <View>
       <Text style={styles.title}>Logout</Text>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={handleLogout}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
+        {!loading && (
+          <TouchableOpacity style={styles.button} onPress={handleLogout}>
+            <Text style={styles.buttonText}>Logout</Text>
+          </TouchableOpacity>
+        )}
+        {loading && <LoadingIcon width={52} height={52} />}
       </View>
     </View>
   );
@@ -28,6 +41,8 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     paddingHorizontal: 12,
+    alignItems: "center",
+    paddingTop: 20,
   },
 
   title: {
@@ -48,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#059415",
-    marginTop: 20,
+    paddingHorizontal: 80,
   },
 
   buttonText: {
