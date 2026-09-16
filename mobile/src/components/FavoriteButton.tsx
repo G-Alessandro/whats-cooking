@@ -1,4 +1,4 @@
-import { TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { TouchableOpacity, StyleSheet, Alert, View } from "react-native";
 import FavoriteFilledSvg from "../assets/svg/favorite/favorite-filled.svg";
 import FavoriteOutlineSvg from "../assets/svg/favorite/favorite-outline.svg";
 import {
@@ -6,6 +6,7 @@ import {
   removeFavoriteRecipe,
 } from "../services/favorites.services";
 import { getValidAccessToken } from "../services/token.services";
+import LoadingIcon from "./LoadingIcon";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 
@@ -23,10 +24,13 @@ export default function FavoriteButton({
   recipeId,
 }: FavoriteButtonProps) {
   const [recipeIsFavorite, setRecipeIsFavorite] = useState(isFavorite);
+  const [loading, setLoading] = useState(false);
   const { accessToken, setAccessToken } = useAuth();
 
   async function handleAddFavoriteRecipe() {
     try {
+      setLoading(true);
+
       if (!accessToken) {
         Alert.alert(
           "Login required",
@@ -53,6 +57,8 @@ export default function FavoriteButton({
 
         return;
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -83,14 +89,21 @@ export default function FavoriteButton({
   }
 
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={
-        recipeIsFavorite ? handleRemoveFavoriteRecipe : handleAddFavoriteRecipe
-      }
-    >
-      {recipeIsFavorite ? <FavoriteFilledSvg /> : <FavoriteOutlineSvg />}
-    </TouchableOpacity>
+    <View>
+      {!loading && (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={
+            recipeIsFavorite
+              ? handleRemoveFavoriteRecipe
+              : handleAddFavoriteRecipe
+          }
+        >
+          {recipeIsFavorite ? <FavoriteFilledSvg /> : <FavoriteOutlineSvg />}
+        </TouchableOpacity>
+      )}
+      {loading && <LoadingIcon width={35} height={35} />}
+    </View>
   );
 }
 
