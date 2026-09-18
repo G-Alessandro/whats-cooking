@@ -116,7 +116,10 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           resizeMode="contain"
         />
         <View>
-          <Text style={styles.ingredientsCollapsibleTitle}>ingredients</Text>
+          {(recipe.usedIngredientCount !== undefined ||
+            recipe.missedIngredientCount !== undefined) && (
+            <Text style={styles.ingredientsCollapsibleTitle}>ingredients</Text>
+          )}
           <View style={styles.collapsibleContainer}>
             <CollapsibleSection
               ingredientsType="Used"
