@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     paddingHorizontal: 12,
-    alignItems: "center",
   },
 
   title: {
