@@ -2,7 +2,8 @@ import { StyleSheet, ScrollView, View, Text, Alert } from "react-native";
 import { Recipe, FavoriteRecipe } from "../types/recipes.types";
 import { getValidAccessToken } from "../services/token.services";
 import { getFavoriteRecipes } from "../services/favorites.services";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import LoadingIcon from "./LoadingIcon";
 import RecipeCard from "./RecipeCard";
@@ -47,9 +48,11 @@ export default function FavoriteRecipes() {
     }
   }
 
-  useEffect(() => {
-    findFavoriteRecipes();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      findFavoriteRecipes();
+    }, [accessToken]),
+  );
 
   return (
     <View>
