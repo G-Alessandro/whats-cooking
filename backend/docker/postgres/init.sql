@@ -1,0 +1,1 @@
+CREATE DATABASE whats_cooking_test;
