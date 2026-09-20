@@ -4,8 +4,10 @@ Mobile application developed with React Native and Expo to find recipes based on
 
 The project includes a mobile frontend, a REST API backend, and a PostgreSQL database.
 
-<img src="./readme-assets/app-image.gif" alt="What's Cooking Demo" width="200">
- 
+<div align="center">
+  <img src="./readme-assets/app-image.gif" alt="What's Cooking Demo" width="200">
+</div>
+
 ## Demo
 
 The APK can be installed directly on an Android device. No Google Play Store installation is required.
