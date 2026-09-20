@@ -1,6 +1,6 @@
 # What's Cooking
 
-Mobile application developed with React Native and Expo to find recipes based on available ingredients or discover new ones.
+Mobile application developed with React Native and Expo that uses the Spoonacular API to find recipes based on available ingredients or discover new ones.
 
 The project includes a mobile frontend, a REST API backend, and a PostgreSQL database.
 
@@ -53,6 +53,10 @@ The APK can be installed directly on an Android device. No Google Play Store ins
 - Zod
 - Vitest
 - Supertest
+
+### External API
+
+- [Spoonacular API](https://spoonacular.com/food-api) — recipe data and search
 
 ## Infrastructure
 
