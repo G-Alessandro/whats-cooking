@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   listContainer: { marginTop: 10, marginBottom: 120 },
 
   noFavoriteText: {
+    alignSelf: "center",
     fontSize: 16,
     fontWeight: "bold",
   },
