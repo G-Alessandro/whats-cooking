@@ -16,6 +16,9 @@ export default function RecipeList() {
             })}
           </ScrollView>
         )}
+        {recipesList.length <= 0 && (
+          <Text style={styles.noRecipesText}>No recipes found</Text>
+        )}
       </View>
     </View>
   );
@@ -40,4 +43,10 @@ const styles = StyleSheet.create({
   },
 
   listContainer: { marginBottom: 280 },
+
+  noRecipesText: {
+    alignSelf: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
